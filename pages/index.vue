@@ -12,18 +12,16 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { defineComponent } from '@vue/composition-api'
 import Item from '@/models/Item'
 import List from '@/components/List.vue'
-import { VueCompositionApi, defineComponent, ref, reactive } from '@/vue/composition-api';
-
-console.log("message")
 
 export default defineComponent({
   components: {
     List,
   },
-  setup(){
-    
+  setup () {
+
 
   },
   data: () => ({
@@ -31,40 +29,40 @@ export default defineComponent({
       new Item({
         id: 1,
         name: 'task1',
-        done: false,
+        done: false
       }),
       new Item({
         id: 2,
         name: 'task2',
-        done: true,
+        done: true
       }),
       new Item({
         id: 3,
         name: 'task3',
-        done: false,
-      }),
+        done: false
+      })
     ],
-    newItemId: 4,
+    newItemId: 4
   }),
   methods: {
-    addItem(itemName: string) {
+    addItem (itemName: string) {
       this.items.push(
         new Item({
           id: this.newItemId++,
           name: itemName,
-          done: false,
+          done: false
         })
       )
     },
-    changeDone(id: number) {
+    changeDone (id: number) {
       // will access to database
     },
-    deleteItem(id: number) {
+    deleteItem (id: number) {
       this.items = this.items.filter((item) => item.id !== id)
     },
-    deleteDone() {
+    deleteDone () {
       this.items = this.items.filter((item) => !item.done)
-    },
-  },
+    }
+  }
 })
 </script>
