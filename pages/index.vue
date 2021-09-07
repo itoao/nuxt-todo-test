@@ -11,17 +11,15 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
 import { defineComponent } from '@vue/composition-api'
 import Item from '@/models/Item'
 import List from '@/components/List.vue'
 
 export default defineComponent({
   components: {
-    List,
+    List
   },
   setup () {
-
 
   },
   data: () => ({

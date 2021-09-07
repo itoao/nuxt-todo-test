@@ -30,5 +30,4 @@ export default class Item {
     set done (value: boolean) {
       this._props.done = value
     }
-
 }

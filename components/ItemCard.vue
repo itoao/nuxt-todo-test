@@ -19,16 +19,16 @@ export default Vue.extend({
   props: {
     item: {
       required: true,
-      type: Object,
-    },
+      type: Object
+    }
   },
   methods: {
-    changeDone() {
+    changeDone () {
       this.$emit('change-done', this.item.id)
     },
-    deleteItem() {
+    deleteItem () {
       this.$emit('delete-item', this.item.id)
-    },
-  },
+    }
+  }
 })
 </script>
