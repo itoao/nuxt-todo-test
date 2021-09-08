@@ -34,10 +34,10 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import { defineComponent, reactive, ref } from '@vue/composition-api'
 import ItemCard from '@/components/ItemCard.vue'
 
-export default Vue.extend({
+export default defineComponent({
   components: {
     ItemCard
   },
@@ -47,24 +47,28 @@ export default Vue.extend({
       type: Array
     }
   },
-  data: () => ({
-    newItemName: ''
-  }),
-  methods: {
-    addItem () {
-      if (this.newItemName.length !== 0) {
-        this.$emit('add-item', this.newItemName)
-        this.newItemName = ''
+  setup (context: SetupContext) {
+    const newItemName = ref('')
+    const addItem = () => {
+      if (newItemName.value.length !== 0) {
+        context.emit('add-item', newItemName.value)
+        newItemName.value = ''
       }
-    },
-    changeDone (id: number) {
-      this.$emit('change-done', id)
-    },
-    deleteItem (id: number) {
-      this.$emit('delete-item', id)
-    },
-    deleteDone () {
-      this.$emit('delete-done')
+    }
+    const changeDone = (id: number) => {
+      context.emit('change-done', id)
+    }
+    const deleteItem = (id: number) => {
+      context.emit('delete-item', id)
+    }
+    const deleteDone = () => {
+      context.emit('delete-done')
+    }
+    return {
+      addItem,
+      changeDone,
+      deleteItem,
+      deleteDone
     }
   }
 })

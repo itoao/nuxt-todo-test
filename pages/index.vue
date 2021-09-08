@@ -11,8 +11,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api'
-import Item from '@/models/Item'
+import { defineComponent, reactive, ref } from '@vue/composition-api'
+import Item, { IItem } from '@/models/Item'
 import List from '@/components/List.vue'
 
 export default defineComponent({
@@ -20,46 +20,48 @@ export default defineComponent({
     List
   },
   setup () {
-
-  },
-  data: () => ({
-    items: [
-      new Item({
+    const items = () => [
+      reactive(new Item({
         id: 1,
         name: 'task1',
         done: false
-      }),
-      new Item({
+      })),
+      reactive(new Item({
         id: 2,
         name: 'task2',
         done: true
-      }),
-      new Item({
+      })),
+      reactive(new Item({
         id: 3,
         name: 'task3',
         done: false
-      })
-    ],
-    newItemId: 4
-  }),
-  methods: {
-    addItem (itemName: string) {
-      this.items.push(
+      }))
+    ]
+    const newItemId = ref(4)
+
+    const addItem = (itemName: string) => {
+      items.push(
         new Item({
-          id: this.newItemId++,
+          id: newItemId.value++,
           name: itemName,
           done: false
         })
       )
-    },
-    changeDone (id: number) {
-      // will access to database
-    },
-    deleteItem (id: number) {
-      this.items = this.items.filter((item) => item.id !== id)
-    },
-    deleteDone () {
-      this.items = this.items.filter((item) => !item.done)
+    }
+    const changeDone = (id: number) => {
+    }
+    const deleteItem = (id: number) => {
+      items: IItem = items.filter((item) => item.id !== id)
+    }
+    const deleteDone = () => {
+      items = items.filter((item) => !item.done)
+    }
+    return {
+      items,
+      addItem,
+      changeDone,
+      deleteItem,
+      deleteDone
     }
   }
 })
